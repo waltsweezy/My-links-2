@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walt Sweezy’s Links</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #000000;
+      --btn-border: #ff2b2b;
+      --accent: #ff2b2b;
+      --cash: #00ff7b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: #ffffff;
+      text-align: center;
+      padding-bottom: 80px; /* space for sticky CTA */
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: 24px;
+    }
+
+    /* SKYLINE BANNER */
+    .banner-wrapper {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      height: 220px;
+    }
+
+    .banner-image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://images.pexels.com/photos/533587/pexels-photo-533587.jpeg?auto=compress&cs=tinysrgb&w=1200");
+      /* Swap this URL for any preferred Atlanta skyline image */
+      background-size: cover;
+      background-position: center;
+      animation: slowZoom 12s ease-in-out infinite alternate;
+      transform-origin: center;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.1) 40%,
+        rgba(0, 0, 0, 0.9)
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 24px 16px 18px;
+    }
+
+    .title-main {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 22px rgba(255, 43, 43, 0.8);
+      animation: glowPulse 2.6s ease-in-out infinite;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* LINKS SECTION */
+    .links-section {
+      margin-top: 22px;
+      padding: 0 16px;
+    }
+
+    .link-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 18px;
+      margin: 12px auto;
+      background: #050505;
+      border-radius: 999px;
+      border: 2px solid var(--btn-border);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transform: translateY(10px);
+      opacity: 0;
+      animation: slideUpFade 0.7s ease-out forwards;
+    }
+
+    .link-button:nth-child(1) { animation-delay: 0.18s; }
+    .link-button:nth-child(2) { animation-delay: 0.30s; }
+    .link-button:nth-child(3) { animation-delay: 0.42s; }
+    .link-button:nth-child(4) { animation-delay: 0.54s; }
+    .link-button:nth-child(5) { animation-delay: 0.66s; }
+
+    .link-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.15) 45%,
+        transparent 100%
+      );
+      transform: translateX(-120%);
+      transition: transform 0.5s ease;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .link-button:hover::before {
+      transform: translateX(120%);
+    }
+
+    .link-button:hover {
+      box-shadow: 0 0 18px rgba(255, 43, 43, 0.6);
+      transform: translateY(0) scale(1.01);
+    }
+
+    .link-button:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 0 10px rgba(255, 43, 43, 0.4);
+    }
+
+    .btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .btn-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .btn-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chevron {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER CONTACT */
+    .footer {
+      margin-top: 26px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .footer a.email-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .cash-tag {
+      color: var(--cash);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* STICKY CTA BAR */
+    .sticky-cta {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 16px 14px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.96),
+        rgba(0, 0, 0, 0.85),
+        transparent
+      );
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .sticky-cta-inner {
+      width: 100%;
+      max-width: 480px;
+      pointer-events: auto;
+    }
+
+    .book-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at 20% 0, #ff7b39, #ff2b2b);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(255, 43, 43, 0.7);
+      animation: pulseCTA 2.2s ease-in-out infinite;
+    }
+
+    .book-btn span.icon {
+      font-size: 20px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes slowZoom {
+      0%   { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.8),
+                     0 0 18px rgba(255, 43, 43, 0.7);
+      }
+      50% {
+        text-shadow: 0 0 18px rgba(0, 0, 0, 0.9),
+                     0 0 30px rgba(255, 43, 43, 1);
+      }
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseCTA {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 16px rgba(255, 43, 43, 0.7);
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 26px rgba(255, 140, 92, 0.9);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+
+    <!-- SKYLINE BANNER -->
+    <div class="banner-wrapper">
+      <div class="banner-image"></div>
+      <div class="banner-overlay">
+        <h1 class="title-main">WALT SWEEZY’S LINKS</h1>
+        <p class="subtitle">Tap in to the cuts, the films, and the flame.</p>
+      </div>
+    </div>
+
+    <!-- MAIN LINK BUTTONS -->
+    <div class="links-section">
+
+      <a class="link-button" href="https://www.instagram.com/waltsweezy?igsh=MThzN3BtbTcxMWtiMQ==" target="_blank" rel="noopener">
+        <div class="btn-left">
+          <span class="btn-icon">💈</span>
+          <span class="btn-text">MakeOvers Barbershop</span>
+        </div>
+        <span class="chevron">›</span>
+      </a>
+
+      <a class="link-button" href="https://book.thecut.co/WaltTheBarber" target="_blank" rel="noopener">
+        <div class="btn-left">
+          <span class="btn-icon">✂️</span>
+          <span class="btn-text">TheCut (Appointments)</span>
+        </div>
+        <span class="chevron">›</span>
+      </a>
+
+      <a class="link-button" href="https://www.instagram.com/ritechusempirefilms?igsh=MTV6Y3lpejR5aTFxbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+        <div class="btn-left">
+          <span class="btn-icon">🎬</span>
+          <span class="btn-text">Rite-Chus Empire Films</span>
+        </div>
+        <span class="chevron">›</span>
+      </a>
+
+      <a class="link-button" href="https://www.instagram.com/smokinhottatl?igsh=MXJzMmYzcWs0dzR4OA%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+        <div class="btn-left">
+          <span class="btn-icon">🔥</span>
+          <span class="btn-text">Smookin' Hott ATL</span>
+        </div>
+        <span class="chevron">›</span>
+      </a>
+
+      <a class="link-button" href="https://www.tiktok.com/@waltsweezy?_r=1&_t=ZP-923mQ3GneWd" target="_blank" rel="noopener">
+        <div class="btn-left">
+          <span class="btn-icon">🎵</span>
+          <span class="btn-text">TikTok</span>
+        </div>
+        <span class="chevron">›</span>
+      </a>
+
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="footer">
+      <div>
+        Email:
+        <a href="mailto:waltsweezy@gmail.com" class="email-link">
+          waltsweezy@gmail.com
+        </a>
+      </div>
+      <div style="margin-top: 8px;">
+        Cash App:
+        <a href="https://cash.app/$WaltTheBarber" class="cash-tag" target="_blank" rel="noopener">
+          $waltthebarber
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STICKY BOTTOM CTA -->
+  <div class="sticky-cta">
+    <div class="sticky-cta-inner">
+      <a class="book-btn" href="https://book.thecut.co/WaltTheBarber" target="_blank" rel="noopener">
+        <span class="icon">📅</span>
+        <span>Book a Cut Now</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
